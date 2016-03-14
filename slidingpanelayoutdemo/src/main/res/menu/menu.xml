@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/main_menu_group0">
+        <item android:id="@+id/main_menu_home" android:icon="@mipmap/ic_launcher" android:title="主页"/>
+        <item android:id="@+id/main_menu_category" android:icon="@drawable/abc_ic_menu_cut_mtrl_alpha" android:title="分类"/>
+        <item android:id="@+id/main_menu_settting" android:icon="@drawable/abc_ic_menu_cut_mtrl_alpha" android:title="设置"/>
+    </group>
+    <group android:id="@+id/main_menu_group">
+        <item android:id="@+id/main_menu_group1" android:title="分组1"/>
+        <item android:id="@+id/main_menu_group2" android:title="分组2"/>
+        <item android:id="@+id/main_menu_group3" android:title="分组3"/>
+    </group>
+
+    <group android:id="@+id/main_menu_group10">
+        <item android:id="@+id/main_menu_group11" android:title="分组11"/>
+        <item android:id="@+id/main_menu_group21" android:title="分组12"/>
+        <item android:id="@+id/main_menu_group31" android:title="分组13"/>
+    </group>
+</menu>
