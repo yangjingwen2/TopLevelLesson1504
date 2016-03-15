@@ -26,7 +26,10 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -50,11 +53,14 @@ public class HeartSelectedFragment extends BaseFragment {
     private List<Integer> mBannerDataList = new ArrayList<>();
 
     private HeaderViewHolder headerViewHolder;
+
+    private Map<String,List<String>> mExpandDatas = new HashMap<>();
     /**
      * Fragment和Activity通信的接口：采用的接口回掉
      */
     private OnFragmentInteractionListener mListener;
     private ExpandAdapter mExpandAdapter;
+    private List<String> mKeyList;
 
     /**
      * 无参构造器：必写
@@ -125,7 +131,6 @@ public class HeartSelectedFragment extends BaseFragment {
      */
     private void setupHeaderView() {
 
-
         if (mBannerDataList.isEmpty()) {
             mBannerDataList.add(R.drawable.child_item);
             mBannerDataList.add(R.drawable.abc2);
@@ -146,8 +151,6 @@ public class HeartSelectedFragment extends BaseFragment {
         .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL);
 
         mExpandListView.addHeaderView(headerView);
-
-
     }
 
     class BannerViewHolder implements Holder<Integer> {
@@ -182,6 +185,21 @@ public class HeartSelectedFragment extends BaseFragment {
      */
     private void setupExpandListView() {
 
+        mKeyList = new ArrayList<>();
+        for(int i=0; i<5; i++) {
+            List<String> childList = new ArrayList<>();
+            childList.add("XXXXXXXXXXXXXXX");
+            String key = "2016-3-16 Tue" + i;
+            mKeyList.add(key);
+            mExpandDatas.put(key, childList);
+        }
+
+
+//            Set<String> set = mExpandDatas.keySet();
+
+//            mKeyList.addAll(set);
+
+
         mExpandAdapter = new ExpandAdapter();
 
         //关联适配i
@@ -212,7 +230,7 @@ public class HeartSelectedFragment extends BaseFragment {
          */
         @Override
         public int getGroupCount() {
-            return 6;
+            return mKeyList.size();
         }
 
 
@@ -223,7 +241,13 @@ public class HeartSelectedFragment extends BaseFragment {
          */
         @Override
         public int getChildrenCount(int groupPosition) {
-            return 3;
+
+            if (mExpandDatas != null && mKeyList != null
+                && mKeyList.size() > groupPosition && mExpandDatas.get(mKeyList.get(groupPosition)) != null) {
+                return mExpandDatas.get(mKeyList.get(groupPosition)).size();
+            }
+            return 0;
+
         }
 
         @Override
@@ -271,7 +295,7 @@ public class HeartSelectedFragment extends BaseFragment {
                 groupView.setTag(groupViewHolder);
             }
 
-            groupViewHolder.mDateText.setText(DateFormatTool.formatDate(new Date().getTime()));
+            groupViewHolder.mDateText.setText(mKeyList.get(groupPosition));
 
             return groupView;
         }
