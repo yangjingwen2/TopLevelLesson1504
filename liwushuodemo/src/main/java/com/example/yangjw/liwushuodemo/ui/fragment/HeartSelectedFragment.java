@@ -14,16 +14,24 @@ import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bigkoo.convenientbanner.ConvenientBanner;
+import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
+import com.bigkoo.convenientbanner.holder.Holder;
 import com.example.yangjw.liwushuodemo.BaseFragment;
 import com.example.yangjw.liwushuodemo.R;
 import com.example.yangjw.liwushuodemo.tool.DateFormatTool;
+import com.example.yangjw.liwushuodemo.tool.LogTool;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnItemClick;
 
 /**
  *
@@ -38,6 +46,10 @@ public class HeartSelectedFragment extends BaseFragment {
     ExpandableListView mExpandListView;
 
     private Context mContext;
+
+    private List<Integer> mBannerDataList = new ArrayList<>();
+
+    private HeaderViewHolder headerViewHolder;
     /**
      * Fragment和Activity通信的接口：采用的接口回掉
      */
@@ -67,17 +79,101 @@ public class HeartSelectedFragment extends BaseFragment {
 
         mContext = getActivity();
 
+        LogTool.LOG_D(HeartSelectedFragment.class,"--onCreate");
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        LogTool.LOG_D(HeartSelectedFragment.class,"--onCreateView");
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_heart_selected, container, false);
         //初始化ButterKnife
         ButterKnife.bind(this, view);
+
+        setupHeaderView();
         setupExpandListView();
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        LogTool.LOG_D(HeartSelectedFragment.class,"--onDestroyView");
+        super.onDestroyView();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (headerViewHolder != null) {
+            headerViewHolder.mConvenientBannner.startTurning(3000);
+        }
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (headerViewHolder != null) {
+            headerViewHolder.mConvenientBannner.stopTurning();
+        }
+    }
+
+    /**
+     * 添加头部布局
+     */
+    private void setupHeaderView() {
+
+
+        if (mBannerDataList.isEmpty()) {
+            mBannerDataList.add(R.drawable.child_item);
+            mBannerDataList.add(R.drawable.abc2);
+        }
+
+        View headerView = LayoutInflater.from(mContext).inflate(R.layout.expand_listview_header, null);
+        headerViewHolder = new HeaderViewHolder(headerView);
+
+        //参数一：CBViewHolderCreator创建者对象
+        //参数二：数据源
+        headerViewHolder.mConvenientBannner.setPages(new CBViewHolderCreator() {
+            @Override
+            public Object createHolder() {
+                return new BannerViewHolder();
+            }
+        },mBannerDataList)
+        .setPageIndicator(new int[]{R.drawable.ic_page_indicator,R.drawable.ic_page_indicator_focused})
+        .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL);
+
+        mExpandListView.addHeaderView(headerView);
+
+
+    }
+
+    class BannerViewHolder implements Holder<Integer> {
+
+        private ImageView mBannerImageView;
+
+        @Override
+        public View createView(Context context) {
+            mBannerImageView = new ImageView(mContext);
+            mBannerImageView.setScaleType(ImageView.ScaleType.FIT_XY);
+            return mBannerImageView;
+        }
+
+        @Override
+        public void UpdateUI(Context context, int position, Integer data) {
+
+            mBannerImageView.setImageResource(data);
+        }
+    }
+
+    class HeaderViewHolder {
+        @Bind(R.id.expand_listview_header_convenientBanner)
+        ConvenientBanner mConvenientBannner;
+        public HeaderViewHolder(View view) {
+            ButterKnife.bind(this,view);
+        }
     }
 
 
@@ -87,6 +183,7 @@ public class HeartSelectedFragment extends BaseFragment {
     private void setupExpandListView() {
 
         mExpandAdapter = new ExpandAdapter();
+
         //关联适配i
         mExpandListView.setAdapter(mExpandAdapter);
 
@@ -101,6 +198,7 @@ public class HeartSelectedFragment extends BaseFragment {
             }
         });
     }
+
 
     /**
      * 创建ExpandableListView的适配器

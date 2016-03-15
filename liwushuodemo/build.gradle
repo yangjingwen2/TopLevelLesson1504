@@ -26,4 +26,7 @@ dependencies {
     compile 'com.android.support:design:23.1.1'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.android.support:support-v4:23.1.1'
+    compile 'com.bigkoo:convenientbanner:2.0.5'
+    compile 'com.makeramen:roundedimageview:2.2.1'
+
 }

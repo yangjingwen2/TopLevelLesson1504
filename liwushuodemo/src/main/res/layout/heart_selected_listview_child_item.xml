@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="5dp">
 
-    <ImageView
+    <!--<ImageView
         android:id="@+id/selected_child_imageview"
         android:layout_width="match_parent"
         android:layout_height="180dp"
         android:scaleType="fitXY"
-        android:src="@drawable/child_item"/>
+        android:src="@drawable/child_item"/>-->
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/selected_child_imageview"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:src="@drawable/child_item"
+        android:scaleType="fitXY"
+        app:riv_corner_radius="10dip"/>
+
+
 
     <TextView
         android:id="@+id/selected_child_title_tv"
@@ -15,5 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:text="标题XXXXXX"
-        android:layout_marginBottom="10dp"/>
+        android:textColor="@color/white"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"/>
 </RelativeLayout>

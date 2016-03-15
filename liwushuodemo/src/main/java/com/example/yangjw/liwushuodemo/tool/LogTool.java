@@ -9,7 +9,7 @@ import android.util.Log;
 public class LogTool {
 
 
-    private static boolean DEBUG = false;
+    private static boolean DEBUG = true;
 
     public static void LOG_D(Class clazz,String log) {
         if (DEBUG) {
