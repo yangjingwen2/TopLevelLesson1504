@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ButterKnifeDemo</string>
+    <string name="main_submit_btn">价格</string>
+</resources>
