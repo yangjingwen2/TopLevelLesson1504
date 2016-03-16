@@ -110,7 +110,6 @@ public class HeartSelectedFragment extends BaseFragment {
             public void onSucess(ProductInfo productInfo) {
                 //接受到服务器返回的数据
                 //对结果进行分组处理。组名称采用发布时间
-
                 List<ProductInfo.DataEntity.ItemsEntity> itemsEntityList = productInfo.getData().getItems();
                 for (int i=0,size=itemsEntityList.size(); i<size; i++) {
                     //拿了一个苹果
@@ -120,7 +119,6 @@ public class HeartSelectedFragment extends BaseFragment {
                     List<ProductInfo.DataEntity.ItemsEntity> itemsEntities = itemsMap.get(key);
                     //如果有放苹果的框子
                     if (itemsEntities != null) {
-
                         itemsEntities.add(itemsEntity);
                     } else {
                         mGroupNameList.add(key);
@@ -220,21 +218,6 @@ public class HeartSelectedFragment extends BaseFragment {
      * ExpandableListView设置
      */
     private void setupExpandListView() {
-
-//        mKeyList = new ArrayList<>();
-//        for(int i=0; i<5; i++) {
-//            List<String> childList = new ArrayList<>();
-//            childList.add("XXXXXXXXXXXXXXX");
-//            String key = "2016-3-16 Tue" + i;
-//            mKeyList.add(key);
-//            mExpandDatas.put(key, childList);
-//        }
-
-
-//            Set<String> set = mExpandDatas.keySet();
-
-//            mKeyList.addAll(set);
-
 
         mExpandAdapter = new ExpandAdapter();
 
