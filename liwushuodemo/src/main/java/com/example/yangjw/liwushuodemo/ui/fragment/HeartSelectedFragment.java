@@ -15,8 +15,8 @@ import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
 import com.example.yangjw.liwushuodemo.BaseFragment;
 import com.example.yangjw.liwushuodemo.R;
-import com.example.yangjw.liwushuodemo.bean.ItemInfo;
 import com.example.yangjw.liwushuodemo.bean.ProductInfo;
+import com.example.yangjw.liwushuodemo.bean.TabInfo;
 import com.example.yangjw.liwushuodemo.http.IOkCallBack;
 import com.example.yangjw.liwushuodemo.http.OkHttpTool;
 import com.example.yangjw.liwushuodemo.http.UrlConfig;
@@ -105,7 +105,7 @@ public class HeartSelectedFragment extends BaseFragment {
      */
     private void getHttpData() {
 
-        OkHttpTool.okGet(UrlConfig.HEART_SELETED_LIST_URL, ProductInfo.class, new IOkCallBack<ProductInfo>(){
+        OkHttpTool.newInstance().okGet(UrlConfig.HEART_SELETED_LIST_URL, ProductInfo.class, new IOkCallBack<ProductInfo>(){
             @Override
             public void onSucess(ProductInfo productInfo) {
                 //接受到服务器返回的数据
@@ -131,9 +131,14 @@ public class HeartSelectedFragment extends BaseFragment {
                 }
 
                 mExpandAdapter.notifyDataSetChanged();
+                for (int i=0; i<6; i++) {
+                    mExpandListView.expandGroup(i);
+                }
 
             }
         },3);
+
+
     }
 
     @Override
@@ -224,9 +229,7 @@ public class HeartSelectedFragment extends BaseFragment {
         //关联适配i
         mExpandListView.setAdapter(mExpandAdapter);
 
-        for (int i=0; i<6; i++) {
-            mExpandListView.expandGroup(i);
-        }
+
 
         mExpandListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override

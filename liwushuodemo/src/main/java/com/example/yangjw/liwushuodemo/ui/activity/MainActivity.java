@@ -12,6 +12,9 @@ import android.os.Bundle;
 import com.example.yangjw.liwushuodemo.BaseActivity;
 import com.example.yangjw.liwushuodemo.BaseFragment;
 import com.example.yangjw.liwushuodemo.R;
+import com.example.yangjw.liwushuodemo.bean.TabInfo;
+import com.example.yangjw.liwushuodemo.http.IOkCallBack;
+import com.example.yangjw.liwushuodemo.http.OkHttpTool;
 import com.example.yangjw.liwushuodemo.ui.fragment.CategoryCommonFragment;
 import com.example.yangjw.liwushuodemo.ui.fragment.HeartSelectedFragment;
 
@@ -31,13 +34,14 @@ public class MainActivity extends BaseActivity{
     private ContentPagerAdapter mContentPagerAdapter;
     private List<BaseFragment> fragmentList = new ArrayList<>();
     private List<String> mTitleList = new ArrayList<>();
+    private List<TabInfo.DataEntity.ChannelsEntity> channels;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        setupViewPager();
+//        setupViewPager();
         setupTabLayout();
     }
 
@@ -46,6 +50,25 @@ public class MainActivity extends BaseActivity{
      */
     private void setupTabLayout() {
         mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+
+        OkHttpTool.newInstance().okGet("http://api.liwushuo.com/v2/channels/preset?gender=1&generation=2", TabInfo.class, new IOkCallBack<TabInfo>() {
+
+
+            @Override
+            public void onSucess(TabInfo resultInfo) {
+
+                channels = resultInfo.getData().getChannels();
+
+                //初始化数据源
+                fragmentList.add(HeartSelectedFragment.newInstance());
+
+                for(int i=0, size=channels.size()-1; i<size; i++) {
+                    fragmentList.add(CategoryCommonFragment.newInstance());
+                }
+
+                setupViewPager();
+            }
+        }, 2);
     }
 
     /**
@@ -53,20 +76,9 @@ public class MainActivity extends BaseActivity{
      */
     private void setupViewPager() {
 
-        mTitleList.add("精选");
-        mTitleList.add("涨姿势");
-        mTitleList.add("美食");
-        mTitleList.add("海淘");
-        mTitleList.add("礼物");
-        mTitleList.add("爱运动");
 
-        //初始化数据源
-        fragmentList.add(HeartSelectedFragment.newInstance());
-        fragmentList.add(CategoryCommonFragment.newInstance());
-        fragmentList.add(CategoryCommonFragment.newInstance());
-        fragmentList.add(CategoryCommonFragment.newInstance());
-        fragmentList.add(CategoryCommonFragment.newInstance());
-        fragmentList.add(CategoryCommonFragment.newInstance());
+
+
         //ViewPager关联适配器
         mContentPagerAdapter = new ContentPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mContentPagerAdapter);
@@ -95,7 +107,7 @@ public class MainActivity extends BaseActivity{
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return mTitleList.get(position);
+            return channels.get(position).getName();
         }
     }
 

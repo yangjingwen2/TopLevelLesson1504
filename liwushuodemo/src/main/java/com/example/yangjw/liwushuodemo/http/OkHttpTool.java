@@ -36,12 +36,17 @@ public class OkHttpTool {
 
     static {
         if (okHttpClient == null) {
+            LogTool.LOG_D(OkHttpTool.class,"------1-----");
             okHttpClient = new OkHttpClient();
         }
     }
 
 
-    private static Handler mHandler = new Handler();
+    private Handler mHandler = new Handler();
+
+    public static OkHttpTool newInstance() {
+        return new OkHttpTool();
+    }
 
 
     /**
@@ -51,7 +56,7 @@ public class OkHttpTool {
      * @param callBack
      * @param <T>
      */
-    public static <T> void okGet(String url,final Class<T> clazz,final IOkCallBack callBack,int requestCode) {
+    public <T> void okGet(String url,final Class<T> clazz,final IOkCallBack callBack,int requestCode) {
         //创建一个请求
         //.header("Content-Type","text/html;charset:utf-8") Http协议的请求头信息
         Request request = new Request.Builder().url(url).tag(requestCode).build();
@@ -92,7 +97,7 @@ public class OkHttpTool {
      * @param callBack 回调接口
      * @param <T>
      */
-    public static <T> void okPost(String url, Map<String,String> param,final Class<T> clazz,final IOkCallBack callBack) {
+    public <T> void okPost(String url, Map<String,String> param,final Class<T> clazz,final IOkCallBack callBack) {
 
         //application/json是Http协议中的ContentType，charset=utf-8是Http协议中的编码格式
         //制定参数的编码方式和参数的格式
