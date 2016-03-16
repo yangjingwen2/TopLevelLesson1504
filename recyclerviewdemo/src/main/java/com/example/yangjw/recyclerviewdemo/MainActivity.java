@@ -1,5 +1,6 @@
 package com.example.yangjw.recyclerviewdemo;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,10 +24,12 @@ public class MainActivity extends AppCompatActivity {
         //初始化
         mRecyclerView = (RecyclerView) findViewById(R.id.main_recycler_view);
         //指定一个布局管理器
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        mRecyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).color(Color.RED).build());
         //关联适配器
         myRecyclerAdapter = new MyRecyclerAdapter();
         mRecyclerView.setAdapter(myRecyclerAdapter);
+
     }
 
 
