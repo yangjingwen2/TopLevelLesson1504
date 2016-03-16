@@ -1,15 +1,11 @@
 package com.example.yangjw.liwushuodemo.ui.fragment;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,28 +24,20 @@ import com.example.yangjw.liwushuodemo.tool.DateFormatTool;
 import com.example.yangjw.liwushuodemo.tool.LogTool;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.OnItemClick;
 
 /**
- *
  * @author yangjw
  * @date 2016.3.15
  * @desc:精选界面
  */
 public class HeartSelectedFragment extends BaseFragment {
-
 
     @Bind(R.id.selected_expand_lv)
     ExpandableListView mExpandListView;
@@ -93,11 +81,8 @@ public class HeartSelectedFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         mContext = getActivity();
-
         LogTool.LOG_D(HeartSelectedFragment.class,"--onCreate");
-
     }
 
     @Override
@@ -119,13 +104,12 @@ public class HeartSelectedFragment extends BaseFragment {
      * 请求网络数据
      */
     private void getHttpData() {
-        OkHttpTool.okGet(UrlConfig.HEART_SELETED_LIST_URL,new IOkCallBack(){
 
+        OkHttpTool.okGet(UrlConfig.HEART_SELETED_LIST_URL, ProductInfo.class, new IOkCallBack<ProductInfo>(){
             @Override
             public void onSucess(ProductInfo productInfo) {
                 //接受到服务器返回的数据
                 //对结果进行分组处理。组名称采用发布时间
-
 
                 List<ProductInfo.DataEntity.ItemsEntity> itemsEntityList = productInfo.getData().getItems();
                 for (int i=0,size=itemsEntityList.size(); i<size; i++) {
@@ -151,7 +135,7 @@ public class HeartSelectedFragment extends BaseFragment {
                 mExpandAdapter.notifyDataSetChanged();
 
             }
-        });
+        },3);
     }
 
     @Override

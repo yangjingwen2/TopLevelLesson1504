@@ -19,6 +19,11 @@
         android:scaleType="fitXY"
         app:riv_corner_radius="10dip"/>
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:src="@drawable/selected_item_grag_bg"/>
+
 
 
     <TextView

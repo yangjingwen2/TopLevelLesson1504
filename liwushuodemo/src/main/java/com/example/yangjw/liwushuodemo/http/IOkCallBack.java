@@ -4,8 +4,9 @@ import com.example.yangjw.liwushuodemo.bean.ProductInfo;
 
 /**
  * Created by yangjw on 2016/3/16.
+ *
  */
-public interface IOkCallBack {
+public interface IOkCallBack<E> {
 
-    public void onSucess(ProductInfo productInfo) ;
+    public void onSucess(E resultInfo) ;
 }

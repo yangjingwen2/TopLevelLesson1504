@@ -2,25 +2,23 @@ package com.example.yangjw.liwushuodemo.http;
 
 import android.os.Handler;
 
-import com.example.yangjw.liwushuodemo.bean.ItemInfo;
 import com.example.yangjw.liwushuodemo.bean.ProductInfo;
 import com.example.yangjw.liwushuodemo.tool.GsonTool;
 import com.example.yangjw.liwushuodemo.tool.LogTool;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 /**
@@ -46,9 +44,17 @@ public class OkHttpTool {
     private static Handler mHandler = new Handler();
 
 
-    public static void okGet(String url,final IOkCallBack callBack) {
+    /**
+     * OkHttp的GET请求
+     * @param url
+     * @param clazz
+     * @param callBack
+     * @param <T>
+     */
+    public static <T> void okGet(String url,final Class<T> clazz,final IOkCallBack callBack,int requestCode) {
         //创建一个请求
-        Request request = new Request.Builder().url(url).build();
+        //.header("Content-Type","text/html;charset:utf-8") Http协议的请求头信息
+        Request request = new Request.Builder().url(url).tag(requestCode).build();
         //执行请求
         okHttpClient.newCall(request).enqueue(new Callback() {
             //请求失败
@@ -56,15 +62,14 @@ public class OkHttpTool {
             public void onFailure(Call call, IOException e) {
                 //执行在工作线程中，不能直接对UI进行更新
             }
-
             //请求成功
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 //执行在工作线程中，不能直接对UI进行更新
                 String result = response.body().string();
-
-                final ProductInfo productInfo1 = GsonTool.parseJson2Object(result, ProductInfo.class);
-
+//                Object  tag = response.request().tag();
+//                LogTool.LOG_D(OkHttpTool.class,"-->" + tag);
+                final T productInfo1 = GsonTool.parseJson2Object(result, clazz);
 
                 mHandler.post(new Runnable() {
                     @Override
@@ -76,8 +81,60 @@ public class OkHttpTool {
 
             }
         });
+    }
 
 
+    /**
+     * OkHttp 的Post请求
+     * @param url 请求的URL
+     * @param param 传入的参数
+     * @param clazz 返回的Object对象的class类型
+     * @param callBack 回调接口
+     * @param <T>
+     */
+    public static <T> void okPost(String url, Map<String,String> param,final Class<T> clazz,final IOkCallBack callBack) {
+
+        //application/json是Http协议中的ContentType，charset=utf-8是Http协议中的编码格式
+        //制定参数的编码方式和参数的格式
+        MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
+        //设置POST的请求入参
+        String formatParam = formatParam(param);
+        RequestBody requestBody = RequestBody.create(mediaType, formatParam);
+        //创建请求
+        Request request = new Request.Builder().url(url).post(requestBody).build();
+        okHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+               final T object = GsonTool.parseJson2Object(response.body().string(), clazz);
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        callBack.onSucess(object);
+                    }
+                });
+            }
+        });
+
+    }
+
+    private static String formatParam(Map<String,String> param) {
+                JSONObject jsonObject = new JSONObject();
+            try {
+                Set<String> keySet = param.keySet();
+                for (String key:keySet) {
+                        jsonObject.put(key,param.get(key));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        return jsonObject.toString();
     }
 
 }
