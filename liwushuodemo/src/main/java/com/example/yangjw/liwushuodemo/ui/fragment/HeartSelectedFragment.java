@@ -19,8 +19,14 @@ import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
 import com.example.yangjw.liwushuodemo.BaseFragment;
 import com.example.yangjw.liwushuodemo.R;
+import com.example.yangjw.liwushuodemo.bean.ItemInfo;
+import com.example.yangjw.liwushuodemo.bean.ProductInfo;
+import com.example.yangjw.liwushuodemo.http.IOkCallBack;
+import com.example.yangjw.liwushuodemo.http.OkHttpTool;
+import com.example.yangjw.liwushuodemo.http.UrlConfig;
 import com.example.yangjw.liwushuodemo.tool.DateFormatTool;
 import com.example.yangjw.liwushuodemo.tool.LogTool;
+import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
@@ -54,13 +60,18 @@ public class HeartSelectedFragment extends BaseFragment {
 
     private HeaderViewHolder headerViewHolder;
 
-    private Map<String,List<String>> mExpandDatas = new HashMap<>();
     /**
      * Fragment和Activity通信的接口：采用的接口回掉
      */
     private OnFragmentInteractionListener mListener;
     private ExpandAdapter mExpandAdapter;
-    private List<String> mKeyList;
+
+
+    /**
+     * 分组的数据源
+     */
+    private Map<String,List<ProductInfo.DataEntity.ItemsEntity>> itemsMap = new HashMap<>();
+    private List<String> mGroupNameList = new ArrayList<>();
 
     /**
      * 无参构造器：必写
@@ -100,13 +111,54 @@ public class HeartSelectedFragment extends BaseFragment {
 
         setupHeaderView();
         setupExpandListView();
+        getHttpData();
         return view;
+    }
+
+    /**
+     * 请求网络数据
+     */
+    private void getHttpData() {
+        OkHttpTool.okGet(UrlConfig.HEART_SELETED_LIST_URL,new IOkCallBack(){
+
+            @Override
+            public void onSucess(ProductInfo productInfo) {
+                //接受到服务器返回的数据
+                //对结果进行分组处理。组名称采用发布时间
+
+
+                List<ProductInfo.DataEntity.ItemsEntity> itemsEntityList = productInfo.getData().getItems();
+                for (int i=0,size=itemsEntityList.size(); i<size; i++) {
+                    //拿了一个苹果
+                    ProductInfo.DataEntity.ItemsEntity itemsEntity = itemsEntityList.get(i);
+                    String key = DateFormatTool.formatDate(itemsEntity.getPublished_at() * 1000L);
+                    //找框子
+                    List<ProductInfo.DataEntity.ItemsEntity> itemsEntities = itemsMap.get(key);
+                    //如果有放苹果的框子
+                    if (itemsEntities != null) {
+
+                        itemsEntities.add(itemsEntity);
+                    } else {
+                        mGroupNameList.add(key);
+                        //如果没有框子，就获取一个新的框子
+                        itemsEntities = new ArrayList<>();
+                        //将苹果放大新的框子中
+                        itemsEntities.add(itemsEntity);
+                        itemsMap.put(key,itemsEntities);
+                    }
+                }
+
+                mExpandAdapter.notifyDataSetChanged();
+
+            }
+        });
     }
 
     @Override
     public void onDestroyView() {
-        LogTool.LOG_D(HeartSelectedFragment.class,"--onDestroyView");
+        LogTool.LOG_D(HeartSelectedFragment.class, "--onDestroyView");
         super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 
     @Override
@@ -185,14 +237,14 @@ public class HeartSelectedFragment extends BaseFragment {
      */
     private void setupExpandListView() {
 
-        mKeyList = new ArrayList<>();
-        for(int i=0; i<5; i++) {
-            List<String> childList = new ArrayList<>();
-            childList.add("XXXXXXXXXXXXXXX");
-            String key = "2016-3-16 Tue" + i;
-            mKeyList.add(key);
-            mExpandDatas.put(key, childList);
-        }
+//        mKeyList = new ArrayList<>();
+//        for(int i=0; i<5; i++) {
+//            List<String> childList = new ArrayList<>();
+//            childList.add("XXXXXXXXXXXXXXX");
+//            String key = "2016-3-16 Tue" + i;
+//            mKeyList.add(key);
+//            mExpandDatas.put(key, childList);
+//        }
 
 
 //            Set<String> set = mExpandDatas.keySet();
@@ -230,7 +282,7 @@ public class HeartSelectedFragment extends BaseFragment {
          */
         @Override
         public int getGroupCount() {
-            return mKeyList.size();
+            return mGroupNameList.size();
         }
 
 
@@ -242,9 +294,9 @@ public class HeartSelectedFragment extends BaseFragment {
         @Override
         public int getChildrenCount(int groupPosition) {
 
-            if (mExpandDatas != null && mKeyList != null
-                && mKeyList.size() > groupPosition && mExpandDatas.get(mKeyList.get(groupPosition)) != null) {
-                return mExpandDatas.get(mKeyList.get(groupPosition)).size();
+            if (itemsMap != null && mGroupNameList != null
+                && mGroupNameList.size() > groupPosition && itemsMap.get(mGroupNameList.get(groupPosition)) != null) {
+                return itemsMap.get(mGroupNameList.get(groupPosition)).size();
             }
             return 0;
 
@@ -295,7 +347,7 @@ public class HeartSelectedFragment extends BaseFragment {
                 groupView.setTag(groupViewHolder);
             }
 
-            groupViewHolder.mDateText.setText(mKeyList.get(groupPosition));
+            groupViewHolder.mDateText.setText(mGroupNameList.get(groupPosition));
 
             return groupView;
         }
@@ -336,6 +388,11 @@ public class HeartSelectedFragment extends BaseFragment {
                 childViewHolder = new ChildViewHolder(childView);
                 childView.setTag(childViewHolder);
             }
+
+            ProductInfo.DataEntity.ItemsEntity itemsEntity = itemsMap.get(mGroupNameList.get(groupPosition)).get(childPosition);
+            childViewHolder.titleText.setText(itemsEntity.getTitle());
+            //使用Picasso请求图片
+            Picasso.with(mContext).load(itemsEntity.getCover_image_url()).into(childViewHolder.imageView);
             return childView;
         }
 
