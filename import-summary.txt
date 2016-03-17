@@ -1,0 +1,118 @@
+ECLIPSE ANDROID PROJECT IMPORT SUMMARY
+======================================
+
+Ignored Files:
+--------------
+The following files were *not* copied into the new Gradle project; you
+should evaluate whether these are still needed in your project and if
+so manually move them:
+
+* LICENSE
+* library.iml
+* pom.xml
+* target\
+* target\classes\
+* target\classes\com\
+* target\classes\com\handmark\
+* target\classes\com\handmark\pulltorefresh\
+* target\classes\com\handmark\pulltorefresh\library\
+* target\classes\com\handmark\pulltorefresh\library\BuildConfig.class
+* target\classes\com\handmark\pulltorefresh\library\ILoadingLayout.class
+* target\classes\com\handmark\pulltorefresh\library\IPullToRefresh.class
+* target\classes\com\handmark\pulltorefresh\library\LoadingLayoutProxy.class
+* target\classes\com\handmark\pulltorefresh\library\OverscrollHelper$1.class
+* target\classes\com\handmark\pulltorefresh\library\OverscrollHelper.class
+* target\classes\com\handmark\pulltorefresh\library\PullToRefreshAdapterViewBase$1.class
+* target\classes\com\handmark\pulltorefresh\library\PullToRefreshAdapterViewBase.class
+* target\classes\com\handmark\pulltorefresh\library\PullToRefreshBase$1.class
+* target\classes\com\handmark\pulltorefresh\library\PullToRefreshBase$2.class
+* target\classes\com\handmark\pulltorefresh\library\PullToRefreshBase$3.class
+* target\classes\com\handmark\pulltorefresh\library\PullToRefreshBase$4.class
+* target\classes\com\handmark\pulltorefresh\library\PullToRefreshBase$AnimationStyle.class
+* target\classes\com\handmark\pulltorefresh\library\PullToRefreshBase$Mode.class
+* target\classes\com\handmark\pulltorefresh\library\PullToRefreshBase$OnLastItemVisibleListener.class
+* target\classes\com\handmark\pulltorefresh\library\PullToRefreshBase$OnPullEventListener.class
+* target\classes\com\handmark\pulltorefresh\library\PullToRefreshBase$OnRefreshListener.class
+* target\classes\com\handmark\pulltorefresh\library\PullToRefreshBase$OnRefreshListener2.class
+* target\classes\com\handmark\pulltorefresh\library\PullToRefreshBase$OnSmoothScrollFinishedListener.class
+* target\classes\com\handmark\pulltorefresh\library\PullToRefreshBase$Orientation.class
+* target\classes\com\handmark\pulltorefresh\library\PullToRefreshBase$SmoothScrollRunnable.class
+* target\classes\com\handmark\pulltorefresh\library\PullToRefreshBase$State.class
+* target\classes\com\handmark\pulltorefresh\library\PullToRefreshBase.class
+* target\classes\com\handmark\pulltorefresh\library\PullToRefreshExpandableListView$InternalExpandableListView.class
+* target\classes\com\handmark\pulltorefresh\library\PullToRefreshExpandableListView$InternalExpandableListViewSDK9.class
+* target\classes\com\handmark\pulltorefresh\library\PullToRefreshExpandableListView.class
+* target\classes\com\handmark\pulltorefresh\library\PullToRefreshGridView$InternalGridView.class
+* target\classes\com\handmark\pulltorefresh\library\PullToRefreshGridView$InternalGridViewSDK9.class
+* target\classes\com\handmark\pulltorefresh\library\PullToRefreshGridView.class
+* target\classes\com\handmark\pulltorefresh\library\PullToRefreshHorizontalScrollView$InternalHorizontalScrollViewSDK9.class
+* target\classes\com\handmark\pulltorefresh\library\PullToRefreshHorizontalScrollView.class
+* target\classes\com\handmark\pulltorefresh\library\PullToRefreshListView$1.class
+* target\classes\com\handmark\pulltorefresh\library\PullToRefreshListView$InternalListView.class
+* target\classes\com\handmark\pulltorefresh\library\PullToRefreshListView$InternalListViewSDK9.class
+* target\classes\com\handmark\pulltorefresh\library\PullToRefreshListView.class
+* target\classes\com\handmark\pulltorefresh\library\PullToRefreshScrollView$InternalScrollViewSDK9.class
+* target\classes\com\handmark\pulltorefresh\library\PullToRefreshScrollView.class
+* target\classes\com\handmark\pulltorefresh\library\PullToRefreshWebView$1.class
+* target\classes\com\handmark\pulltorefresh\library\PullToRefreshWebView$2.class
+* target\classes\com\handmark\pulltorefresh\library\PullToRefreshWebView$InternalWebViewSDK9.class
+* target\classes\com\handmark\pulltorefresh\library\PullToRefreshWebView.class
+* target\classes\com\handmark\pulltorefresh\library\R$anim.class
+* target\classes\com\handmark\pulltorefresh\library\R$attr.class
+* target\classes\com\handmark\pulltorefresh\library\R$dimen.class
+* target\classes\com\handmark\pulltorefresh\library\R$drawable.class
+* target\classes\com\handmark\pulltorefresh\library\R$id.class
+* target\classes\com\handmark\pulltorefresh\library\R$layout.class
+* target\classes\com\handmark\pulltorefresh\library\R$string.class
+* target\classes\com\handmark\pulltorefresh\library\R$styleable.class
+* target\classes\com\handmark\pulltorefresh\library\R.class
+* target\classes\com\handmark\pulltorefresh\library\extras\
+* target\classes\com\handmark\pulltorefresh\library\extras\PullToRefreshWebView2$JsValueCallback.class
+* target\classes\com\handmark\pulltorefresh\library\extras\PullToRefreshWebView2.class
+* target\classes\com\handmark\pulltorefresh\library\extras\SoundPullEventListener.class
+* target\classes\com\handmark\pulltorefresh\library\internal\
+* target\classes\com\handmark\pulltorefresh\library\internal\EmptyViewMethodAccessor.class
+* target\classes\com\handmark\pulltorefresh\library\internal\FlipLoadingLayout$1.class
+* target\classes\com\handmark\pulltorefresh\library\internal\FlipLoadingLayout.class
+* target\classes\com\handmark\pulltorefresh\library\internal\IndicatorLayout$1.class
+* target\classes\com\handmark\pulltorefresh\library\internal\IndicatorLayout.class
+* target\classes\com\handmark\pulltorefresh\library\internal\LoadingLayout$1.class
+* target\classes\com\handmark\pulltorefresh\library\internal\LoadingLayout.class
+* target\classes\com\handmark\pulltorefresh\library\internal\RotateLoadingLayout.class
+* target\classes\com\handmark\pulltorefresh\library\internal\Utils.class
+* target\classes\com\handmark\pulltorefresh\library\internal\ViewCompat$SDK11.class
+* target\classes\com\handmark\pulltorefresh\library\internal\ViewCompat$SDK16.class
+* target\classes\com\handmark\pulltorefresh\library\internal\ViewCompat.class
+* target\generated-sources\
+* target\generated-sources\r\
+* target\generated-sources\r\com\
+* target\generated-sources\r\com\handmark\
+* target\generated-sources\r\com\handmark\pulltorefresh\
+* target\generated-sources\r\com\handmark\pulltorefresh\library\
+* target\generated-sources\r\com\handmark\pulltorefresh\library\BuildConfig.java
+* target\generated-sources\r\com\handmark\pulltorefresh\library\Manifest.java
+* target\generated-sources\r\com\handmark\pulltorefresh\library\R.java
+
+Moved Files:
+------------
+Android Gradle projects use a different directory structure than ADT
+Eclipse projects. Here's how the projects were restructured:
+
+* AndroidManifest.xml => pulltorefreshlibrary\src\main\AndroidManifest.xml
+* res\ => pulltorefreshlibrary\src\main\res\
+* src\ => pulltorefreshlibrary\src\main\java\
+
+Next Steps:
+-----------
+You can now build the project. The Gradle project needs network
+connectivity to download dependencies.
+
+Bugs:
+-----
+If for some reason your project does not build, and you determine that
+it is due to a bug or limitation of the Eclipse to Gradle importer,
+please file a bug at http://b.android.com with category
+Component-Tools.
+
+(This import summary is for your information only, and can be deleted
+after import once you are satisfied with the results.)
