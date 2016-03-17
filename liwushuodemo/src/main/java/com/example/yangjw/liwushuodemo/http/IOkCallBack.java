@@ -9,4 +9,5 @@ import com.example.yangjw.liwushuodemo.bean.ProductInfo;
 public interface IOkCallBack<E> {
 
     public void onSucess(E resultInfo) ;
+
 }

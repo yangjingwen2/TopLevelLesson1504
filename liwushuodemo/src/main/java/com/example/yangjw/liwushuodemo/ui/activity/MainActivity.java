@@ -51,18 +51,16 @@ public class MainActivity extends BaseActivity{
     private void setupTabLayout() {
         mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
 
-        OkHttpTool.newInstance().okGet("http://api.liwushuo.com/v2/channels/preset?gender=1&generation=2", TabInfo.class, new IOkCallBack<TabInfo>() {
+        OkHttpTool.newInstance(this).okGet("http://api.liwushuo.com/v2/channels/preset?gender=1&generation=2", TabInfo.class, new IOkCallBack<TabInfo>() {
 
 
             @Override
             public void onSucess(TabInfo resultInfo) {
-
                 channels = resultInfo.getData().getChannels();
-
                 //初始化数据源
                 fragmentList.add(HeartSelectedFragment.newInstance());
 
-                for(int i=0, size=channels.size()-1; i<size; i++) {
+                for (int i = 0, size = channels.size() - 1; i < size; i++) {
                     fragmentList.add(CategoryCommonFragment.newInstance());
                 }
 
@@ -111,4 +109,9 @@ public class MainActivity extends BaseActivity{
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        OkHttpTool.newInstance(this).cancel(this);
+    }
 }

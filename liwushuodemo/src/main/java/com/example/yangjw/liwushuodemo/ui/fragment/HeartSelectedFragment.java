@@ -60,6 +60,7 @@ public class HeartSelectedFragment extends BaseFragment {
      */
     private Map<String,List<ProductInfo.DataEntity.ItemsEntity>> itemsMap = new HashMap<>();
     private List<String> mGroupNameList = new ArrayList<>();
+    private OkHttpTool mOkHttpTool;
 
     /**
      * 无参构造器：必写
@@ -93,10 +94,12 @@ public class HeartSelectedFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_heart_selected, container, false);
         //初始化ButterKnife
         ButterKnife.bind(this, view);
+        mOkHttpTool = OkHttpTool.newInstance(getActivity());
 
         setupHeaderView();
         setupExpandListView();
         getHttpData();
+
         return view;
     }
 
@@ -105,13 +108,14 @@ public class HeartSelectedFragment extends BaseFragment {
      */
     private void getHttpData() {
 
-        OkHttpTool.newInstance().okGet(UrlConfig.HEART_SELETED_LIST_URL, ProductInfo.class, new IOkCallBack<ProductInfo>(){
+        //列表信息
+        mOkHttpTool.okGet(UrlConfig.HEART_SELETED_LIST_URL, ProductInfo.class, new IOkCallBack<ProductInfo>() {
             @Override
             public void onSucess(ProductInfo productInfo) {
                 //接受到服务器返回的数据
                 //对结果进行分组处理。组名称采用发布时间
                 List<ProductInfo.DataEntity.ItemsEntity> itemsEntityList = productInfo.getData().getItems();
-                for (int i=0,size=itemsEntityList.size(); i<size; i++) {
+                for (int i = 0, size = itemsEntityList.size(); i < size; i++) {
                     //拿了一个苹果
                     ProductInfo.DataEntity.ItemsEntity itemsEntity = itemsEntityList.get(i);
                     String key = DateFormatTool.formatDate(itemsEntity.getPublished_at() * 1000L);
@@ -126,17 +130,20 @@ public class HeartSelectedFragment extends BaseFragment {
                         itemsEntities = new ArrayList<>();
                         //将苹果放大新的框子中
                         itemsEntities.add(itemsEntity);
-                        itemsMap.put(key,itemsEntities);
+                        itemsMap.put(key, itemsEntities);
                     }
                 }
 
                 mExpandAdapter.notifyDataSetChanged();
-                for (int i=0; i<6; i++) {
+                for (int i = 0; i < 6; i++) {
                     mExpandListView.expandGroup(i);
                 }
 
             }
-        },3);
+        }, 3);
+
+        //请求横向滚动的RecyclerView的信息
+//        mOkHttpTool.okGet();
 
 
     }
@@ -146,7 +153,9 @@ public class HeartSelectedFragment extends BaseFragment {
         LogTool.LOG_D(HeartSelectedFragment.class, "--onDestroyView");
         super.onDestroyView();
         ButterKnife.unbind(this);
+
     }
+
 
     @Override
     public void onResume() {

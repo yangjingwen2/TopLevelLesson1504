@@ -1,5 +1,6 @@
 package com.example.yangjw.liwushuodemo.http;
 
+import android.app.Activity;
 import android.os.Handler;
 
 import com.example.yangjw.liwushuodemo.bean.ProductInfo;
@@ -10,6 +11,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -34,6 +38,9 @@ public class OkHttpTool {
     private static OkHttpClient okHttpClient ;
 
 
+    private List<Call> callList = new ArrayList<>();
+    private static Map<Activity,OkHttpTool> map = new HashMap<>();
+
     static {
         if (okHttpClient == null) {
             LogTool.LOG_D(OkHttpTool.class,"------1-----");
@@ -44,8 +51,13 @@ public class OkHttpTool {
 
     private Handler mHandler = new Handler();
 
-    public static OkHttpTool newInstance() {
-        return new OkHttpTool();
+    public static OkHttpTool newInstance(Activity activity) {
+        OkHttpTool okHttpTool = map.get(activity);
+        if (okHttpTool == null) {
+            okHttpTool = new OkHttpTool();
+            map.put(activity,okHttpTool);
+        }
+        return okHttpTool;
     }
 
 
@@ -61,31 +73,34 @@ public class OkHttpTool {
         //.header("Content-Type","text/html;charset:utf-8") Http协议的请求头信息
         Request request = new Request.Builder().url(url).tag(requestCode).build();
         //执行请求
-        okHttpClient.newCall(request).enqueue(new Callback() {
-            //请求失败
-            @Override
-            public void onFailure(Call call, IOException e) {
-                //执行在工作线程中，不能直接对UI进行更新
-            }
-            //请求成功
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                //执行在工作线程中，不能直接对UI进行更新
-                String result = response.body().string();
+        Call call = okHttpClient.newCall(request);
+        callList.add(call);
+        call.enqueue(new Callback() {
+                    //请求失败
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        //执行在工作线程中，不能直接对UI进行更新
+                    }
+
+                    //请求成功
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        //执行在工作线程中，不能直接对UI进行更新
+                        String result = response.body().string();
 //                Object  tag = response.request().tag();
 //                LogTool.LOG_D(OkHttpTool.class,"-->" + tag);
-                final T productInfo1 = GsonTool.parseJson2Object(result, clazz);
+                        final T productInfo1 = GsonTool.parseJson2Object(result, clazz);
 
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        callBack.onSucess(productInfo1);
+                        mHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                callBack.onSucess(productInfo1);
+                            }
+                        });
+
+
                     }
                 });
-
-
-            }
-        });
     }
 
 
@@ -116,7 +131,7 @@ public class OkHttpTool {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
 
-               final T object = GsonTool.parseJson2Object(response.body().string(), clazz);
+                final T object = GsonTool.parseJson2Object(response.body().string(), clazz);
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -140,6 +155,24 @@ public class OkHttpTool {
             }
 
         return jsonObject.toString();
+    }
+
+
+    /**
+     * 取消链接
+     */
+    public void cancel(Activity activity) {
+        //TODO
+        if (callList != null && !callList.isEmpty()) {
+            for (int i=callList.size()-1; i>=0; i--) {
+                callList.get(i).cancel();
+                callList.remove(i);
+            }
+        }
+
+        if (map != null && map.get(activity) != null) {
+             map.remove(activity);
+        }
     }
 
 }
