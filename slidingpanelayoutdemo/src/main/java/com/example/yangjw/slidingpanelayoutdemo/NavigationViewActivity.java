@@ -81,7 +81,6 @@ public class NavigationViewActivity extends AppCompatActivity {
         mToolBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (isOpened) {
                     mSlidingLayout.closePane();
                 } else {

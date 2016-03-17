@@ -53,7 +53,6 @@ public class MainActivity extends BaseActivity{
 
         OkHttpTool.newInstance(this).okGet("http://api.liwushuo.com/v2/channels/preset?gender=1&generation=2", TabInfo.class, new IOkCallBack<TabInfo>() {
 
-
             @Override
             public void onSucess(TabInfo resultInfo) {
                 channels = resultInfo.getData().getChannels();
@@ -63,7 +62,6 @@ public class MainActivity extends BaseActivity{
                 for (int i = 0, size = channels.size() - 1; i < size; i++) {
                     fragmentList.add(CategoryCommonFragment.newInstance());
                 }
-
                 setupViewPager();
             }
         }, 2);

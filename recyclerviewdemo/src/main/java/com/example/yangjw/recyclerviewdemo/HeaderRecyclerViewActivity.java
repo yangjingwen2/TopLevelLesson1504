@@ -57,7 +57,7 @@ public class HeaderRecyclerViewActivity extends AppCompatActivity {
             if (viewType == HEADER_VIEW_TYPE) {
                 return new ViewHolder(headerView);
             }
-            View view = LayoutInflater.from(HeaderRecyclerViewActivity.this).inflate(R.layout.recycler_item, null);
+            View view = LayoutInflater.from(HeaderRecyclerViewActivity.this).inflate(R.layout.cardview, null);
             return new ViewHolder(view);
         }
 

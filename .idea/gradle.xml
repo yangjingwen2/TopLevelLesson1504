@@ -10,6 +10,15 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/butterknifedemo" />
+            <option value="$PROJECT_DIR$/cardview" />
+            <option value="$PROJECT_DIR$/javademo" />
+            <option value="$PROJECT_DIR$/liwushuodemo" />
+            <option value="$PROJECT_DIR$/pulltorefreshdemo" />
+            <option value="$PROJECT_DIR$/pulltorefreshlibrary" />
+            <option value="$PROJECT_DIR$/recyclerviewdemo" />
+            <option value="$PROJECT_DIR$/slidingpanelayoutdemo" />
+            <option value="$PROJECT_DIR$/tablayoutdemo" />
           </set>
         </option>
       </GradleProjectSettings>

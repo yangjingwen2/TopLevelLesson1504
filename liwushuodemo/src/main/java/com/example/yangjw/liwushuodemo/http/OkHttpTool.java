@@ -57,6 +57,7 @@ public class OkHttpTool {
             okHttpTool = new OkHttpTool();
             map.put(activity,okHttpTool);
         }
+
         return okHttpTool;
     }
 
