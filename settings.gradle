@@ -1,1 +1,1 @@
-include ':app', ':tablayoutdemo', ':slidingpanelayoutdemo', ':butterknifedemo', ":liwushuodemo"
+include ':app', ':tablayoutdemo', ':slidingpanelayoutdemo', ':butterknifedemo', ':recyclerviewdemo', ':javademo', ":liwushuodemo"
