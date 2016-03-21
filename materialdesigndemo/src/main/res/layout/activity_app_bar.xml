@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.yangjw.materialdesigndemo.AppBarActivity"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <!-- AppBarLayout是一个垂直的线性布局 -->
+    <!-- 设置了Layout——scrollFlags属性的控件，必须放在AppBarLayout中其他子空间的前面 -->
+    <!--layout_scrollFlags是AppBarLayout中的熟悉 -->
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="这是一个位于AppBarLayout中的按钮"
+            app:layout_scrollFlags="scroll"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="这是一个位于AppBarLayout中的按钮"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            android:minHeight="50dp"/>
+        <!-- layout_scrollFalgs属性表示指定某个控件可以滚动，以及滚动的效果 -->
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/app_tool_bar"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            app:title="AppBarLayout的使用"/>
+
+    </android.support.design.widget.AppBarLayout>
+
+
+
+    <!--app:layout_behavior用于决定NestedScrollView什么时候滚动 -->
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="300dp" />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="300dp" />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="300dp" />
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <ImageView
+        android:id="@+id/app_image_anchor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ishare_qq_friends"
+        android:layout_gravity="bottom"/>
+
+</android.support.design.widget.CoordinatorLayout>

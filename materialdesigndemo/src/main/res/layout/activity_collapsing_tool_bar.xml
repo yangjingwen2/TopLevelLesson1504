@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.example.yangjw.materialdesigndemo.CollapsingToolBarActivity">
+
+    <!-- 定义AppBarLayout -->
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <!-- CollapsingToolbarLayout必须作为AppBarLayout的直接的Child View，才能发挥其伸缩的特效 -->
+        <!-- app:contentScrim 用于改变当ToolBar收起时的背景颜色-->
+        <!-- layout_collapseMode是决定控件缩放的位置比例。一般结合layout_collapseParallaxMultiplier一起完成需要的效果 -->
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/coll_toorbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="259dp"
+            app:collapsedTitleGravity="center"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/header_imageview_dog"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="0.7"
+                android:scaleType="fitXY"/>
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/coll_tool_bar"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/actionBarSize"
+                app:title="Coll使用"
+                app:titleTextColor="@color/colorAccent"/>
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <!--app:layout_behavior用于决定NestedScrollView什么时候滚动 -->
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="300dp" />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="300dp" />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="300dp" />
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</android.support.design.widget.CoordinatorLayout>

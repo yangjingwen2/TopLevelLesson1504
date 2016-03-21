@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/floating_root_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.example.yangjw.materialdesigndemo.FloatingActionButtonActivity">
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floating_action_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_anchorGravity="bottom|right"
+        app:layout_anchor="@id/floating_root_layout"
+        android:src="@drawable/icon_share_wx"
+        app:fabSize="normal"
+        app:backgroundTint="#FF0000"
+        android:layout_margin="20dp"/>
+</android.support.design.widget.CoordinatorLayout>
