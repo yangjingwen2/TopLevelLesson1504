@@ -20,7 +20,10 @@
         <activity android:name=".CollapsingToolBarActivity" />
         <activity android:name=".BehaviorActivity" />
         <activity android:name=".SnackActivity" />
-        <activity android:name=".FloatingActionButtonActivity"></activity>
+        <activity android:name=".FloatingActionButtonActivity" />
+        <activity android:name=".AllActivity" />
+        <activity android:name=".InflaterActivity" />
+        <activity android:name=".ScrollListActivity"></activity>
     </application>
 
 </manifest>

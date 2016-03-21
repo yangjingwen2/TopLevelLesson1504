@@ -8,5 +8,11 @@
         <item>自定义Behavior</item>
         <item>SnackBar</item>
         <item>FloatingActionButton</item>
+        <item>多个控件的组合使用</item>
+        <item>LayoutInflater</item>
+        <item>ScrollView+ListView\ScrollView+GridView</item>
     </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

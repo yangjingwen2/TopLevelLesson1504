@@ -44,6 +44,16 @@ public class MainActivity extends AppCompatActivity {
                     case 5:
                         intent.setClass(MainActivity.this,FloatingActionButtonActivity.class);
                         break;
+                    case 6:
+                        intent.setClass(MainActivity.this,AllActivity.class);
+                        break;
+                    case 7:
+                        intent.setClass(MainActivity.this,InflaterActivity.class);
+                        break;
+                    case 8:
+                        intent.setClass(MainActivity.this,ScrollListActivity.class);
+                        break;
+
                 }
 
                 startActivity(intent);
