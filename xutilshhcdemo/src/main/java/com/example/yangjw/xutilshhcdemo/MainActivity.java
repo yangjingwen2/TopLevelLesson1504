@@ -130,7 +130,7 @@ public class MainActivity extends BaseActivity implements IXCallBack{
             dataEntityList.add(list1Size, productInfo4.getData().get(0));
 
             int list2Size = productInfo2.getData().size();
-            dataEntityList.add(list1Size+1+list2Size,productInfo4.getData().get(1));
+            dataEntityList.add(list1Size+1+4,productInfo4.getData().get(1));
 
             mHomeListAdapter.notifyDataSetChanged();
         }
@@ -151,7 +151,7 @@ public class MainActivity extends BaseActivity implements IXCallBack{
 
             imageOptions = new ImageOptions.Builder()
                     .setRadius(15)
-                    .setImageScaleType(ImageView.ScaleType.CENTER_CROP)
+                    .setImageScaleType(ImageView.ScaleType.FIT_CENTER)
                     .setFadeIn(true)
                     .setLoadingDrawable(null)  //设置加载中的占位图
                     .build();
