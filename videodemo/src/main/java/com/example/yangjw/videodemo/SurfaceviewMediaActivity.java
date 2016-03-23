@@ -2,6 +2,7 @@ package com.example.yangjw.videodemo;
 
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.SurfaceHolder;
@@ -25,6 +26,8 @@ public class SurfaceviewMediaActivity extends AppCompatActivity implements Surfa
     private Button pauseAndStart;
 
     private boolean isPaused;
+
+    private int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,8 +155,20 @@ public class SurfaceviewMediaActivity extends AppCompatActivity implements Surfa
      */
     @Override
     public void onPrepared(MediaPlayer mp) {
-
         //准备视频数据结束后，在此方法中进行视频播放
         mediaPlayer.start();
+        mediaPlayer.seekTo(position);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+        outState.putInt("position",mediaPlayer.getCurrentPosition());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        position = savedInstanceState.getInt("position",0);
     }
 }

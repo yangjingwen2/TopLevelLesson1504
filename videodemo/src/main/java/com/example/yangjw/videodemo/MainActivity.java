@@ -31,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
                     case 2:
                         intent.setClass(MainActivity.this,SurfaceviewMediaActivity.class);
                         break;
+                    case 3:
+                        intent.setClass(MainActivity.this,ListVideoActivity.class);
+                        break;
                 }
 
                 startActivity(intent);

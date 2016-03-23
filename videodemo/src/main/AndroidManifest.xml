@@ -19,7 +19,8 @@
         </activity>
         <activity android:name=".VideoViewActivity" />
         <activity android:name=".FullScreenVideoActivity" />
-        <activity android:name=".SurfaceviewMediaActivity"></activity>
+        <activity android:name=".SurfaceviewMediaActivity" />
+        <activity android:name=".ListVideoActivity"></activity>
     </application>
 
 </manifest>

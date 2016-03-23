@@ -5,5 +5,6 @@
         <item>介绍VideoView的使用</item>
         <item>全屏显示的VedioView</item>
         <item>显示到SurfaceView上的视频数据</item>
+        <item>列表中Video的播放</item>
     </string-array>
 </resources>
