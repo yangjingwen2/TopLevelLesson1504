@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- colorPrimary是程序的主色调，比如APPBar的颜色 -->
+    <color name="colorPrimary">#3F51B5</color>
+    <!--colorPrimaryDark是状态栏颜色。 5.0以上有效-->
+    <color name="colorPrimaryDark">#FF0000</color>
+    <!-- -->
+    <color name="colorAccent">#FFFF00</color>
+</resources>
